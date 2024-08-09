@@ -1,6 +1,6 @@
-package net.sourceforge.fidocadj.dialogs;
+package fidocadj.dialogs;
 
-import net.sourceforge.fidocadj.R;
+import fidocadj.R;
 import android.app.Activity;
 import android.app.Dialog;
 import android.app.DialogFragment;
@@ -15,7 +15,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.util.DisplayMetrics;
 
-import net.sourceforge.fidocadj.globals.*;
+import fidocadj.globals.*;
 
 /**
   Shows a rather standard "About" dialog. Nothing more exotic than showing the
