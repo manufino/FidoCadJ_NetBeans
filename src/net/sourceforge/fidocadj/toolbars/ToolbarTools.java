@@ -137,7 +137,7 @@ public final class ToolbarTools extends JToolBar
     */
     public ToolbarTools (boolean showText, boolean smallIcons)
     {
-        base = smallIcons ? "icons16/" : "icons32/";
+        base = smallIcons ? "/icons/icons16/" : "/icons/icons32/";
         this.showText = showText;
 
         putClientProperty("Quaqua.ToolBar.style", "title");

@@ -290,7 +290,7 @@ public final class FidoFrame extends JFrame implements
     private void setIconForApplication()
     {
         URL url=DialogAbout.class.getResource(
-            "icona_fidocadj_128x128.png");
+            "/icons/icona_fidocadj_128x128.png");
 
         if (url == null) {
             System.err.println("Could not retrieve the FidoCadJ icon!");
@@ -467,27 +467,27 @@ public final class FidoFrame extends JFrame implements
             if(englishLibraries) {
                 // Read the english version of the libraries
                 pa.loadLibraryInJar(FidoFrame.class.getResource(
-                    "lib/IHRAM_en.FCL"), "ihram");
+                    "/lib/IHRAM_en.FCL"), "ihram");
                 pa.loadLibraryInJar(FidoFrame.class.getResource(
-                    "lib/FCDstdlib_en.fcl"), "");
+                    "/lib/FCDstdlib_en.fcl"), "");
                 pa.loadLibraryInJar(FidoFrame.class.getResource(
-                    "lib/PCB_en.fcl"), "pcb");
+                    "/lib/PCB_en.fcl"), "pcb");
                 pa.loadLibraryInJar(FidoFrame.class.getResource(
-                    "lib/elettrotecnica_en.fcl"), "elettrotecnica");
+                    "/lib/elettrotecnica_en.fcl"), "elettrotecnica");
                 pa.loadLibraryInJar(FidoFrame.class.getResource(
-                    "lib/EY_Libraries.fcl"), "EY_Libraries");
+                    "/lib/EY_Libraries.fcl"), "EY_Libraries");
             } else {
                 // Read the italian version of the libraries
                 pa.loadLibraryInJar(FidoFrame.class.getResource(
-                    "lib/IHRAM.FCL"), "ihram");
+                    "/lib/IHRAM.FCL"), "ihram");
                 pa.loadLibraryInJar(FidoFrame.class.getResource(
-                    "lib/FCDstdlib.fcl"), "");
+                    "/lib/FCDstdlib.fcl"), "");
                 pa.loadLibraryInJar(FidoFrame.class.getResource(
-                    "lib/PCB.fcl"), "pcb");
+                    "/lib/PCB.fcl"), "pcb");
                 pa.loadLibraryInJar(FidoFrame.class.getResource(
-                    "lib/elettrotecnica.fcl"), "elettrotecnica");
+                    "/lib/elettrotecnica.fcl"), "elettrotecnica");
                 pa.loadLibraryInJar(FidoFrame.class.getResource(
-                    "lib/EY_Libraries.fcl"), "EY_Libraries");
+                    "/lib/EY_Libraries.fcl"), "EY_Libraries");
             }
         }
         libraryModel.forceUpdate();

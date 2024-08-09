@@ -239,10 +239,10 @@ public final class FidoMain
         } else {
             if(englishLibraries) {
                 pa.loadLibraryInJar(FidoFrame.class.getResource(
-                    "lib/IHRAM_en.FCL"), "ihram");
+                    "/lib/IHRAM_en.FCL"), "ihram");
             } else {
                 pa.loadLibraryInJar(FidoFrame.class.getResource(
-                    "lib/IHRAM.FCL"), "ihram");
+                    "/lib/IHRAM.FCL"), "ihram");
             }
         }
     }
@@ -266,10 +266,10 @@ public final class FidoMain
         } else {
             if(englishLibraries) {
                 pa.loadLibraryInJar(FidoFrame.class.getResource(
-                    "lib/FCDstdlib_en.fcl"), "");
+                    "/lib/FCDstdlib_en.fcl"), "");
             } else {
                 pa.loadLibraryInJar(FidoFrame.class.getResource(
-                    "lib/FCDstdlib.fcl"), "");
+                    "/lib/FCDstdlib.fcl"), "");
             }
         }
     }
@@ -293,10 +293,10 @@ public final class FidoMain
         } else {
             if(englishLibraries) {
                 pa.loadLibraryInJar(FidoFrame.class.getResource(
-                    "lib/PCB_en.fcl"), "pcb");
+                    "/lib/PCB_en.fcl"), "pcb");
             } else {
                 pa.loadLibraryInJar(FidoFrame.class.getResource(
-                    "lib/PCB.fcl"), "pcb");
+                    "/lib/PCB.fcl"), "pcb");
             }
         }
     }
@@ -322,7 +322,7 @@ public final class FidoMain
             System.out.println("Standard EY_Libraries got from external file");
         } else {
             pa.loadLibraryInJar(FidoFrame.class.getResource(
-                "lib/EY_Libraries.fcl"), "EY_Libraries");
+                "/lib/EY_Libraries.fcl"), "EY_Libraries");
         }
     }
 
@@ -346,10 +346,10 @@ public final class FidoMain
         } else {
             if(englishLibraries) {
                 pa.loadLibraryInJar(FidoFrame.class.getResource(
-                    "lib/elettrotecnica_en.fcl"), "elettrotecnica");
+                    "/lib/elettrotecnica_en.fcl"), "elettrotecnica");
             } else {
                 pa.loadLibraryInJar(FidoFrame.class.getResource(
-                    "lib/elettrotecnica.fcl"), "elettrotecnica");
+                    "/lib/elettrotecnica.fcl"), "elettrotecnica");
             }
         }
     }
