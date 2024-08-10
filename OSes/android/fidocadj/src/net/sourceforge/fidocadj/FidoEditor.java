@@ -1,4 +1,4 @@
-package net.sourceforge.fidocadj;
+package fidocadj;
 
 import java.util.Vector;
 import java.util.Locale;
@@ -14,14 +14,14 @@ import android.graphics.Paint.*;
 import android.util.AttributeSet;
 import android.os.Handler;
 import android.app.Activity;
-import net.sourceforge.fidocadj.circuit.model.*;
-import net.sourceforge.fidocadj.primitives.*;
-import net.sourceforge.fidocadj.geom.*;
-import net.sourceforge.fidocadj.circuit.views.*;
-import net.sourceforge.fidocadj.circuit.controllers.*;
-import net.sourceforge.fidocadj.graphic.android.*;
-import net.sourceforge.fidocadj.layers.*;
-import net.sourceforge.fidocadj.dialogs.*;
+import fidocadj.circuit.model.*;
+import fidocadj.primitives.*;
+import fidocadj.geom.*;
+import fidocadj.circuit.views.*;
+import fidocadj.circuit.controllers.*;
+import fidocadj.graphic.android.*;
+import fidocadj.layers.*;
+import fidocadj.dialogs.*;
 
 /** Android Editor view: draw the circuit inside this view. This is one of the
     most important classes, as it is responsible of all editing actions.

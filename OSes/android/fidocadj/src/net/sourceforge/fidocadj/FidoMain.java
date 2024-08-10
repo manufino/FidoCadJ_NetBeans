@@ -47,27 +47,27 @@ import android.support.v4.widget.DrawerLayout;
 import com.explorer.ExplorerActivity;
 import com.explorer.IO;
 
-import net.sourceforge.fidocadj.dialogs.DialogAbout;
-import net.sourceforge.fidocadj.dialogs.DialogLayer;
-import net.sourceforge.fidocadj.dialogs.DialogOpenFile;
-import net.sourceforge.fidocadj.dialogs.DialogSaveName;
-import net.sourceforge.fidocadj.layers.LayerDesc;
-import net.sourceforge.fidocadj.graphic.android.ColorAndroid;
-import net.sourceforge.fidocadj.geom.MapCoordinates;
-import net.sourceforge.fidocadj.geom.DrawingSize;
-import net.sourceforge.fidocadj.primitives.MacroDesc;
+import fidocadj.dialogs.DialogAbout;
+import fidocadj.dialogs.DialogLayer;
+import fidocadj.dialogs.DialogOpenFile;
+import fidocadj.dialogs.DialogSaveName;
+import fidocadj.layers.LayerDesc;
+import fidocadj.graphic.android.ColorAndroid;
+import fidocadj.geom.MapCoordinates;
+import fidocadj.geom.DrawingSize;
+import fidocadj.primitives.MacroDesc;
 import toolbars.ToolbarTools;
-import net.sourceforge.fidocadj.globals.AccessResources;
-import net.sourceforge.fidocadj.globals.Globals;
-import net.sourceforge.fidocadj.globals.ProvidesCopyPasteInterface;
-import net.sourceforge.fidocadj.circuit.controllers.ContinuosMoveActions;
-import net.sourceforge.fidocadj.circuit.controllers.ElementsEdtActions;
+import fidocadj.globals.AccessResources;
+import fidocadj.globals.Globals;
+import fidocadj.globals.ProvidesCopyPasteInterface;
+import fidocadj.circuit.controllers.ContinuosMoveActions;
+import fidocadj.circuit.controllers.ElementsEdtActions;
 
-import net.sourceforge.fidocadj.librarymodel.Category;
-import net.sourceforge.fidocadj.librarymodel.Library;
-import net.sourceforge.fidocadj.librarymodel.LibraryModel;
-import net.sourceforge.fidocadj.macropicker.ExpandableMacroListView;
-import net.sourceforge.fidocadj.storage.StaticStorage;
+import fidocadj.librarymodel.Category;
+import fidocadj.librarymodel.Library;
+import fidocadj.librarymodel.LibraryModel;
+import fidocadj.macropicker.ExpandableMacroListView;
+import fidocadj.storage.StaticStorage;
 
 /** The main activity of the FidoCadJ application. Important things handled
     here are:
