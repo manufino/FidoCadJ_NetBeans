@@ -74,11 +74,11 @@ public class FileTools
     {
         // If the drawing is empty, there's no need to ask if it should be saved..
         // before closing the program.
-        if(fff.cc.getDrawingModel().isEmpty())
+        if(fff.circuitPanel.getDrawingModel().isEmpty())
             return true;
         
         boolean shouldExit = true;
-        if (fff.cc.getUndoActions().getModified()) {
+        if (fff.circuitPanel.getUndoActions().getModified()) {
             Object[] options = {
                 Globals.messages.getString("Save"),
                 Globals.messages.getString("Do_Not_Save"),
@@ -89,8 +89,8 @@ public class FileTools
             // write Warning!
 
             String filename=Globals.messages.getString("Warning");
-            if(!"".equals(fff.cc.getParserActions().openFileName)) {
-                filename=fff.cc.getParserActions().openFileName;
+            if(!"".equals(fff.circuitPanel.getParserActions().openFileName)) {
+                filename=fff.circuitPanel.getParserActions().openFileName;
             }
             int choice=JOptionPane.showOptionDialog(fff,
                 Globals.messages.getString("Warning_unsaved"),
@@ -116,7 +116,7 @@ public class FileTools
         }
 
         if(shouldExit) {
-            fff.cc.getUndoActions().doTheDishes();
+            fff.circuitPanel.getUndoActions().doTheDishes();
         }
 
         return shouldExit;
@@ -135,7 +135,7 @@ public class FileTools
         try {
             bufRead = new BufferedReader(
                 new InputStreamReader(new FileInputStream(
-                    fff.cc.getParserActions().openFileName),
+                    fff.circuitPanel.getParserActions().openFileName),
                 Globals.encoding));
 
             String line = bufRead.readLine();
@@ -149,13 +149,13 @@ public class FileTools
         }
 
         // Here txt contains the new circuit: draw it!
-        fff.cc.getParserActions().parseString(
+        fff.circuitPanel.getParserActions().parseString(
             new StringBuffer(txt.toString()));
 
         // Calculate the zoom to fit
         fff.zoomToFit();
-        fff.cc.getUndoActions().saveUndoState();
-        fff.cc.getUndoActions().setModified(false);
+        fff.circuitPanel.getUndoActions().saveUndoState();
+        fff.circuitPanel.getUndoActions().setModified(false);
 
         fff.repaint();
     }
@@ -222,10 +222,10 @@ public class FileTools
         if(fin== null) {
             return false;
         } else {
-            fff.cc.getParserActions().openFileName=
+            fff.circuitPanel.getParserActions().openFileName=
                 Globals.createCompleteFileName(din, fin);
-            fff.cc.getParserActions().openFileName = Globals.adjustExtension(
-                fff.cc.getParserActions().openFileName,
+            fff.circuitPanel.getParserActions().openFileName = Globals.adjustExtension(
+                fff.circuitPanel.getParserActions().openFileName,
                     Globals.DEFAULT_EXTENSION);
             if (prefs!=null) {
                 prefs.put("OPEN_DIR", din);
@@ -245,7 +245,7 @@ public class FileTools
     */
     public boolean save(boolean splitNonStandardMacroS)
     {
-        CircuitPanel cc=fff.cc;
+        CircuitPanel cc=fff.circuitPanel;
 
         // If there is not a name currently defined, we use instead the
         // save with name function.
@@ -294,7 +294,7 @@ public class FileTools
     */
     public void load(String s)
     {
-        fff.cc.getParserActions().openFileName= s;
+        fff.circuitPanel.getParserActions().openFileName= s;
         try {
             openFile();
         } catch (IOException fnfex) {
