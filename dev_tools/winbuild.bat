@@ -47,7 +47,7 @@ goto :END
   rem javac  -g -Xlint:unchecked -O -sourcepath src -classpath bin -source 1.5 -target 1.5 ./src/FidoMain.java -d bin
   rem javac  -g -Xlint:unchecked -O -sourcepath src -classpath bin -source 1.5 -target 1.5 ./src/FidoReadApplet.java -d bin
   rem javac  -Xlint:unchecked -g -O -sourcepath src -classpath bin -source 1.5 -target 1.5 ./src/FidoCadApplet.java -d bin
-  javac  -g -O -sourcepath src -classpath bin ./src/net/sourceforge/fidocadj/FidoMain.java -d bin
+  javac  -g -O -sourcepath src -classpath build/classes ./src/fidocadj/FidoMain.java -d build/classes
   rem javac  -g -O -sourcepath src -classpath bin -source 1.5 -target 1.5 ./src/net/sourceforge/fidocadj/FidoReadApplet.java -d bin
   rem javac  -g -O -sourcepath src -classpath bin -source 1.5 -target 1.5 ./src/net/sourceforge/fidocadj/FidoCadApplet.java -d bin
   exit /b
@@ -85,14 +85,15 @@ goto :END
   exit /b
   
 :CLEAN
-  for /r .\bin %%N in (*.class) do (
+  for /r .\build\classes %%N in (*.class) do (
   	  echo delete %%N
   	  del %%N
   )
   exit /b
 
 :RUN
-  java -classpath ./bin;./jar;./jar/quaqua.jar;./jar/ net.sourceforge.fidocadj.FidoMain
+  jar cfm FidoCADJ_NB.jar MANIFEST.MF -C build/classes .
+  java -jar FidoCADJ_NB.jar
   exit /b
 
 :END

@@ -1,3 +1,7 @@
 Manifest-Version: 1.0
+Ant-Version: Apache Ant 1.10.14
+Created-By: 21.0.4+8-LTS-274 (Oracle Corporation)
+Class-Path: 
 X-COMMENT: Main-Class will be added automatically by build
+Main-Class: fidocadj.FidoMain
 
