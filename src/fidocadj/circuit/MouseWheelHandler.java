@@ -39,7 +39,10 @@ public class MouseWheelHandler implements KeyListener,
     public MouseWheelHandler(CircuitPanel c)
     {
         cc=c;
-        cc.addMouseWheelListener(this);
+        
+        if (Globals.isMacOS() == false) {
+            cc.addMouseWheelListener(this);
+        }
     }
 
     /** Windows and Linux users can use Ctrl+Wheel to zoom in and out.
@@ -60,10 +63,12 @@ public class MouseWheelHandler implements KeyListener,
     */
     @Override
     public void keyPressed(KeyEvent e)
-    {/*
-        if (e.getKeyCode() == getKeyForWheel() && !hasMouseWheelListener()) {
-            cc.addMouseWheelListener(this);
-        }*/
+    {
+        if (Globals.isMacOS()) {
+            if (e.getKeyCode() == getKeyForWheel() && !hasMouseWheelListener()){
+                cc.addMouseWheelListener(this);
+            }
+        }
     }
 
     /** Intercepts the moment when the Ctrl or Command key is released (see the
@@ -71,10 +76,12 @@ public class MouseWheelHandler implements KeyListener,
     */
     @Override
     public void keyReleased(KeyEvent e)
-    {/*
-        if (e.getKeyCode() == getKeyForWheel() && hasMouseWheelListener()) {
-            cc.removeMouseWheelListener(this);
-        }*/
+    {
+        if (Globals.isMacOS()) {
+            if (e.getKeyCode() == getKeyForWheel() && hasMouseWheelListener()) {
+                cc.removeMouseWheelListener(this);
+            }
+        }
     }
 
     /** Required by the KeyListener interface.
