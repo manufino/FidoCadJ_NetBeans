@@ -342,14 +342,6 @@ public final class DrawingModel
         return changed;
     }
 
-    /** Returns changed state
-        @return changed state.
-    */
-    public boolean getChanged()
-    {
-        return changed;
-    }
-
     /** Set the change state of the class. Changed just means that we want
         to  recalculate everything in deep during the following redraw.
         This is different from being "modified", since "modified" implies

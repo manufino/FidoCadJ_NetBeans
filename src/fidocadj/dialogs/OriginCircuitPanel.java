@@ -116,39 +116,6 @@ public final class OriginCircuitPanel extends CircuitPanel
     }
 
 
-    /** Get the x coordinates of the origin in logical units.
-     * @return the x coordinate of the origin in logical units.
-    */
-    public int getLx()
-    {
-        return xl;
-    }
-
-    /** Get the y coordinates of the origin in logical units.
-     * @return the y coordinate of the origin in logical units.
-    */
-    public int getLy()
-    {
-        return yl;
-    }
-
-    /** Set the x coordinates of the origin in logical units.
-     * @param xl coordinates of the origin in logical units.
-    */
-    public void setLx(int xl)
-    {
-        this.xl = xl;
-    }
-
-    /** Set the y coordinates of the origin in logical units.
-     * @param yl coordinates of the origin in logical units.
-    */
-    public void setLy(int yl)
-    {
-        this.yl = yl;
-    }
-
-
     /** Put the origin in the 10,10 logical coordinates.
     */
     public void resetOrigin()

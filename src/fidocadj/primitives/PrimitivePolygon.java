@@ -612,26 +612,6 @@ public final class PrimitivePolygon extends GraphicPrimitive
         int[] xp = new int[nPoints];
         int[] yp = new int[nPoints];
 
-    /**
-     * Checks if the polygon intersects with the given selection rectangle.
-     * This method determines if any part of the polygon intersects with the
-     * rectangle, including edges and vertices.
-     *
-     * @param rect the selection rectangle to check for intersection.
-     * @param isLeftToRightSelection if true, checks if the rectangle fully
-     * contains the polygon (for left-to-right selections).
-     *
-     * @return true if the rectangle intersects with any part of the polygon,
-     *         false otherwise.
-     */
-    @Override
-    public boolean intersects(RectangleG rect,
-                              boolean isLeftToRightSelection)
-    {
-        // Convert the polygon's points to arrays for easy processing
-        int[] xp = new int[nPoints];
-        int[] yp = new int[nPoints];
-
         for (int i = 0; i < nPoints; i++) {
             xp[i] = virtualPoint[i].x;
             yp[i] = virtualPoint[i].y;

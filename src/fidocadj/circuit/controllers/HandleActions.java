@@ -75,8 +75,6 @@ public class HandleActions
 
     private boolean isLeftToRightSelection;
 
-    private boolean isLeftToRightSelection;
-
 
     /** Standard constructor: provide the database class.
         @param pp the drawing model
@@ -319,10 +317,6 @@ public class HandleActions
                 int ya = cs.mapYi(oldpx, oldpy, false);
                 int xb = opx;
                 int yb = opy;
-
-                isLeftToRightSelection = xb >= xa;
-
-                cC.isLeftToRightSelection(isLeftToRightSelection);
 
                 isLeftToRightSelection = xb >= xa;
 
