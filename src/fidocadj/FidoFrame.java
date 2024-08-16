@@ -184,22 +184,22 @@ public final class FidoFrame extends JFrame implements
         }
     }
 
-    /** By implementing writeObject method, 
-    // we can prevent 
-    // subclass from serialization 
+    /** By implementing writeObject method,
+    // we can prevent
+    // subclass from serialization
     */
-    private void writeObject(ObjectOutputStream out) throws IOException 
-    { 
-        throw new NotSerializableException(); 
-    } 
-      
-    /* By implementing readObject method, 
-    // we can prevent 
-    // subclass from de-serialization 
+    private void writeObject(ObjectOutputStream out) throws IOException
+    {
+        throw new NotSerializableException();
+    }
+
+    /* By implementing readObject method,
+    // we can prevent
+    // subclass from de-serialization
     */
-    private void readObject(ObjectInputStream in) throws IOException 
-    { 
-        throw new NotSerializableException(); 
+    private void readObject(ObjectInputStream in) throws IOException
+    {
+        throw new NotSerializableException();
     }
 
     /** Store location & size of UI.
@@ -368,7 +368,7 @@ public final class FidoFrame extends JFrame implements
         if(preferences==null) {
             return;
         }
-        
+
         // The library directory
         libDirectory = preferences.get("DIR_LIBS", "");
 
@@ -400,10 +400,10 @@ public final class FidoFrame extends JFrame implements
         // Element sizes
         Globals.lineWidth=Double.parseDouble(
                 preferences.get("STROKE_SIZE_STRAIGHT", "0.5"));
-        
+
         Globals.lineWidthCircles=Double.parseDouble(
                 preferences.get("STROKE_SIZE_OVAL", "0.35"));
-        
+
         Globals.diameterConnection=Double.parseDouble(
                 preferences.get("CONNECTION_SIZE", "2.0"));
     }
@@ -414,7 +414,7 @@ public final class FidoFrame extends JFrame implements
     {
         circuitPanel.getMapCoordinates().setXGridStep(
                 Integer.parseInt(preferences.get("GRID_SIZE", "5")));
-        
+
         circuitPanel.getMapCoordinates().setYGridStep(
                 Integer.parseInt(preferences.get("GRID_SIZE", "5")));
     }
@@ -426,7 +426,8 @@ public final class FidoFrame extends JFrame implements
         CopyPasteActions cpa = circuitPanel.getCopyPasteActions();
 
         // Shift elements when copy/pasting them.
-        cpa.setShiftCopyPaste("true".equals(preferences.get("SHIFT_CP","true")));
+        cpa.setShiftCopyPaste("true".
+            equals(preferences.get("SHIFT_CP","true")));
         AddElements ae=circuitPanel.getContinuosMoveActions().getAddElements();
 
         // Default PCB sizes (pad/line)
@@ -515,7 +516,7 @@ public final class FidoFrame extends JFrame implements
                     preferences.get("MACRO_FONT", Globals.defaultTextFont),
                     Integer.parseInt(preferences.get("MACRO_SIZE", "3")),
                     circuitPanel.getUndoActions());
-            
+
             readGridSettings();
             readDrawingSettings();
         }
@@ -565,10 +566,8 @@ public final class FidoFrame extends JFrame implements
 
         circuitPanel.addChangeZoomListener(toolZoom);
         circuitPanel.addChangeSelectionListener(toolBar);
+        circuitPanel.addChangeCoordinatesListener(toolZoom);
 
-        circuitPanel.getContinuosMoveActions()
-                .addChangeCoordinatesListener(toolZoom);
-        
         toolZoom.addChangeZoomListener(circuitPanel);
 
         Box b=Box.createVerticalBox();
@@ -806,20 +805,20 @@ public final class FidoFrame extends JFrame implements
 
         if (runsAsApplication) {
             preferences.put("DIR_LIBS", libDirectory);
-            preferences.put("MACRO_FONT", 
+            preferences.put("MACRO_FONT",
                     circuitPanel.getDrawingModel().getTextFont());
-            
-            preferences.put("MACRO_SIZE", 
+
+            preferences.put("MACRO_SIZE",
                     ""+circuitPanel.getDrawingModel().getTextFontSize());
-            
+
             preferences.put("STROKE_SIZE_STRAIGHT", ""+Globals.lineWidth);
             preferences.put("STROKE_SIZE_OVAL", ""+Globals.lineWidthCircles);
             preferences.put("CONNECTION_SIZE", ""+Globals.diameterConnection);
-            preferences.put("SMALL_ICON_TOOLBAR", 
+            preferences.put("SMALL_ICON_TOOLBAR",
                     smallIconsToolbar?"true":"false");
-            
+
             preferences.put("TEXT_TOOLBAR", textToolbar?"true":"false");
-            preferences.put("GRID_SIZE", 
+            preferences.put("GRID_SIZE",
                     ""+circuitPanel.getMapCoordinates().getXGridStep());
 
             // Save default PCB characteristics
@@ -842,9 +841,9 @@ public final class FidoFrame extends JFrame implements
     */
     public void zoomToFit()
     {
-		// If the drawing is empty, there's no need to go further.
-    	if(circuitPanel.getDrawingModel().isEmpty())
-    	    return;
+        // If the drawing is empty, there's no need to go further.
+        if(circuitPanel.getDrawingModel().isEmpty())
+            return;
         //double oldz=cc.getMapCoordinates().getXMagnitude();
 
         // We calculate the zoom to fit factor here.

@@ -365,12 +365,12 @@ public final class DialogOptions extends MinimumSizeDialog
         constraints = DialogUtil.createConst(0, 3, 1, 1, 100, 100,
                 GridBagConstraints.EAST, GridBagConstraints.HORIZONTAL,
                 new Insets(6, 40, 6, 0));
-        
+
         restartOptionPanel.add(restw, constraints);
 
         textToolbar_CB = new JCheckBox(
                 Globals.messages.getString("TextToolbar"));
-        
+
         textToolbar_CB.setSelected(textToolbar);
         textToolbar_CB.setOpaque(false);
         constraints = DialogUtil.createConst(0, 4, 1, 1, 100, 100,

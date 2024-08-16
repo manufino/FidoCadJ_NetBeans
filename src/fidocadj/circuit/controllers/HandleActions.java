@@ -4,12 +4,15 @@ import java.util.*;
 
 import fidocadj.circuit.model.DrawingModel;
 import fidocadj.geom.MapCoordinates;
+import fidocadj.geom.ChangeCoordinatesListener;
 import fidocadj.graphic.RectangleG;
 import fidocadj.layers.LayerDesc;
 import fidocadj.primitives.GraphicPrimitive;
 import fidocadj.primitives.PrimitiveRectangle;
 import fidocadj.primitives.PrimitiveMacro;
 import fidocadj.primitives.PrimitiveOval;
+import fidocadj.globals.Globals;
+
 
 
 /** CopyPasteActions: contains a controller which can perform handle drag and
@@ -44,7 +47,10 @@ public class HandleActions
     private final EditorActions edt;
     private final UndoActions ua;
     private final SelectionActions sa;
-    
+
+    // A coordinates listener (to show messages)
+    private ChangeCoordinatesListener coordinatesListener=null;
+
 
     // ******** DRAG & INTERFACE *********
 
@@ -66,7 +72,9 @@ public class HandleActions
     // Other old cursor position for handle drag...
     private int oldpx;
     private int oldpy;
-    
+
+    private boolean isLeftToRightSelection;
+
     private boolean isLeftToRightSelection;
 
 
@@ -87,6 +95,14 @@ public class HandleActions
         firstDrag=false;
         handleBeingDragged=GraphicPrimitive.NO_DRAG;
         isLeftToRightSelection = false;
+    }
+    /** Define the listener to be called to write messages (selection states,
+        etc...).
+        @param c the new coordinates listener
+    */
+    public void addChangeCoordinatesListener(ChangeCoordinatesListener c)
+    {
+        coordinatesListener=c;
     }
 
     /** Drag all the selected primitives during a drag operation.
@@ -243,14 +259,15 @@ public class HandleActions
                 if(!multiple) { sa.setSelectionAll(false); }
                 edt.selectRect(xa, ya, xb-xa, yb-ya);
             }*/
-            
+
             if (handleBeingDragged == GraphicPrimitive.RECT_SELECTION) {
                 int xa = Math.min(oldpx, cs.unmapXnosnap(px));
                 int ya = Math.min(oldpy, cs.unmapYnosnap(py));
                 int xb = Math.max(oldpx, cs.unmapXnosnap(px));
                 int yb = Math.max(oldpy, cs.unmapYnosnap(py));
 
-                RectangleG selectionRect = new RectangleG(xa, ya, xb - xa, yb - ya);
+                RectangleG selectionRect = new RectangleG(xa, ya,
+                    xb - xa, yb - ya);
 
                 if (!multiple) {
                     sa.setSelectionAll(false);
@@ -263,7 +280,7 @@ public class HandleActions
                 }
             }
 
-            
+
             // Test if we are anyway dragging an entire primitive
             if(handleBeingDragged==GraphicPrimitive.DRAG_PRIMITIVE &&
                 hasMoved && ua!=null)
@@ -278,22 +295,22 @@ public class HandleActions
     }
 
     /** Drag a handle.
-        @param cC the editor object.
+        @param editorObject the editor object.
         @param px the (screen) x coordinate of the pointer.
         @param py the (screen) y coordinate of the pointer.
         @param cs the coordinates mapping to be used.
         @param isControl true if the control key is held down.
     */
-    public void dragHandleDrag(PrimitivesParInterface cC,
+    public void dragHandleDrag(PrimitivesParInterface editorObject,
         int px, int py, MapCoordinates cs, boolean isControl)
     {
         hasMoved=true;
         boolean flip=false;
 
-        // Check if we are effectively dragging a handle...
+        // Check if we are indeed dragging a handle...
         if(handleBeingDragged<0){
             if(handleBeingDragged==GraphicPrimitive.DRAG_PRIMITIVE) {
-                dragPrimitives(cC, px, py, cs);
+                dragPrimitives(editorObject, px, py, cs);
             }
 
             // if not, we are performing a rectangular selection
@@ -302,10 +319,24 @@ public class HandleActions
                 int ya = cs.mapYi(oldpx, oldpy, false);
                 int xb = opx;
                 int yb = opy;
-                
+
                 isLeftToRightSelection = xb >= xa;
-                
+
                 cC.isLeftToRightSelection(isLeftToRightSelection);
+
+                isLeftToRightSelection = xb >= xa;
+
+                editorObject.isLeftToRightSelection(isLeftToRightSelection);
+                if(coordinatesListener!=null) {
+                    if(isLeftToRightSelection) {
+                        coordinatesListener.changeInfos(
+                            Globals.messages.getString("completive_selection"));
+                    } else {
+                        coordinatesListener.changeInfos(
+                            Globals.messages.getString("inclusive_selection"));
+
+                    }
+                }
 
                 if(opx>xa && px<xa) {
                     flip=true;
@@ -325,8 +356,8 @@ public class HandleActions
                     opx=px;
                     opy=py;
 
-                    cC.setEvidenceRect(Math.min(xa,xb), Math.min(ya,yb),
-                           Math.abs(xb-xa), Math.abs(yb-ya));
+                    editorObject.setEvidenceRect(Math.min(xa,xb),
+                        Math.min(ya,yb), Math.abs(xb-xa), Math.abs(yb-ya));
 
                     a=Math.min(a, Math.min(xa,xb));
                     b=Math.min(b, Math.min(ya,yb));
@@ -334,9 +365,9 @@ public class HandleActions
                     d=Math.max(d, Math.abs(yb-ya));
 
                     if (flip) {
-                        cC.forcesRepaint();
+                        editorObject.forcesRepaint();
                     } else {
-                        cC.forcesRepaint(a,b,c+10,d+10);
+                        editorObject.forcesRepaint(a,b,c+10,d+10);
                     }
                     return;
                 }
@@ -350,7 +381,7 @@ public class HandleActions
         }
 
         if(!firstDrag) {
-            cC.forcesRepaint();
+            editorObject.forcesRepaint();
         }
         firstDrag=false;
 

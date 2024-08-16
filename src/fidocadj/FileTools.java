@@ -75,7 +75,7 @@ public class FileTools
      */
     public boolean checkIfToBeSaved()
     {
-        // If the drawing is empty, there's no need to ask if it should be .. 
+        // If the drawing is empty, there's no need to ask if it should be ..
         // saved before closing the program.
         if (fff.circuitPanel.getDrawingModel().isEmpty()) {
             return true;
@@ -239,13 +239,13 @@ public class FileTools
             return false;
         } else {
             fff.circuitPanel.getParserActions().openFileName
-            = Globals.createCompleteFileName(din, fin);
-            
-            fff.circuitPanel.getParserActions().openFileName 
-            = Globals.adjustExtension(
+                = Globals.createCompleteFileName(din, fin);
+
+            fff.circuitPanel.getParserActions().openFileName
+                = Globals.adjustExtension(
                     fff.circuitPanel.getParserActions().openFileName,
                     Globals.DEFAULT_EXTENSION);
-            
+
             if (prefs != null) {
                 prefs.put("OPEN_DIR", din);
             }

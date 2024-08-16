@@ -49,22 +49,22 @@ public final class OriginCircuitPanel extends CircuitPanel
     private int xl=5;
     private int yl=5;
 
-    /** By implementing writeObject method, 
-    // we can prevent 
-    // subclass from serialization 
+    /** By implementing writeObject method,
+    // we can prevent
+    // subclass from serialization
     */
-    private void writeObject(ObjectOutputStream out) throws IOException 
-    { 
-        throw new NotSerializableException(); 
-    } 
-      
-    /* By implementing readObject method, 
-    // we can prevent 
-    // subclass from de-serialization 
+    private void writeObject(ObjectOutputStream out) throws IOException
+    {
+        throw new NotSerializableException();
+    }
+
+    /* By implementing readObject method,
+    // we can prevent
+    // subclass from de-serialization
     */
-    private void readObject(ObjectInputStream in) throws IOException 
-    { 
-        throw new NotSerializableException(); 
+    private void readObject(ObjectInputStream in) throws IOException
+    {
+        throw new NotSerializableException();
     }
 
     /** Get the x coordinate of the origin in pixels.
@@ -99,6 +99,39 @@ public final class OriginCircuitPanel extends CircuitPanel
         return yl;
     }
     
+    /** Set the x coordinates of the origin in logical units.
+     * @param xl coordinates of the origin in logical units.
+    */
+    public void setLx(int xl)
+    {
+        this.xl = xl;
+    }
+
+    /** Set the y coordinates of the origin in logical units.
+     * @param yl coordinates of the origin in logical units.
+    */
+    public void setLy(int yl)
+    {
+        this.yl = yl;
+    }
+
+
+    /** Get the x coordinates of the origin in logical units.
+     * @return the x coordinate of the origin in logical units.
+    */
+    public int getLx()
+    {
+        return xl;
+    }
+
+    /** Get the y coordinates of the origin in logical units.
+     * @return the y coordinate of the origin in logical units.
+    */
+    public int getLy()
+    {
+        return yl;
+    }
+
     /** Set the x coordinates of the origin in logical units.
      * @param xl coordinates of the origin in logical units.
     */

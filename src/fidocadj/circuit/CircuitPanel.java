@@ -23,6 +23,7 @@ import fidocadj.circuit.controllers.ContinuosMoveActions;
 import fidocadj.circuit.controllers.SelectionActions;
 import fidocadj.circuit.controllers.PrimitivesParInterface;
 import fidocadj.circuit.controllers.ElementsEdtActions;
+import fidocadj.circuit.controllers.HandleActions;
 import fidocadj.circuit.model.DrawingModel;
 import fidocadj.circuit.views.Drawing;
 import fidocadj.clipboard.TextTransfer;
@@ -32,6 +33,7 @@ import fidocadj.graphic.swing.Graphics2DSwing;
 import fidocadj.graphic.swing.ColorSwing;
 import fidocadj.geom.MapCoordinates;
 import fidocadj.geom.DrawingSize;
+import fidocadj.geom.ChangeCoordinatesListener;
 import fidocadj.globals.Globals;
 
 /** Circuit panel: draw the circuit inside this panel. This is one of the most
@@ -81,7 +83,7 @@ public class CircuitPanel extends JPanel implements ChangeSelectedLayer,
 
     // Draw the grid
     private boolean isGridVisible;
-    
+
     // Selection direction
     private boolean isLeftToRight;
 
@@ -115,6 +117,7 @@ public class CircuitPanel extends JPanel implements ChangeSelectedLayer,
     private ParserActions parserActions;
     private UndoActions undoActions;
     private ContinuosMoveActions continuosMoveActions;
+    private HandleActions handleActions;
     private SelectionActions selectionActions;
 
     // ********** PROFILING **********
@@ -173,7 +176,7 @@ public class CircuitPanel extends JPanel implements ChangeSelectedLayer,
         antiAlias = true;
         record = 1e100;
         evidenceRect = new Rectangle(0, 0, -1, -1);
-        
+
         isLeftToRight = false;
 
         // Set up the standard view settings:
@@ -209,8 +212,9 @@ public class CircuitPanel extends JPanel implements ChangeSelectedLayer,
                 @Override
                 public void mouseMoved(MouseEvent e)
                 {
-                    if (continuosMoveActions.isEnteringMacro() 
-                            && !isFocusOwner()) {
+                    if (continuosMoveActions.isEnteringMacro()
+                        && !isFocusOwner())
+                    {
                         requestFocus();
                     }
                 }
@@ -261,8 +265,9 @@ public class CircuitPanel extends JPanel implements ChangeSelectedLayer,
      */
     public void setSelectionState(int s, String macro)
     {
-        if (selectionListener != null && 
-                s != continuosMoveActions.actionSelected) {
+        if (selectionListener != null &&
+                s != continuosMoveActions.actionSelected)
+        {
             selectionListener.setSelectionState(s, macro);
             selectionListener.setStrictCompatibility(extStrict);
         }
@@ -314,6 +319,16 @@ public class CircuitPanel extends JPanel implements ChangeSelectedLayer,
         scrollGestureSelectionListener = c;
     }
 
+    /** Define the listener to be called when the coordinates of the mouse
+        cursor are changed
+        @param c the new coordinates listener
+    */
+    public void addChangeCoordinatesListener(ChangeCoordinatesListener c)
+    {
+        continuosMoveActions.addChangeCoordinatesListener(c);
+        handleActions.addChangeCoordinatesListener(c);
+
+    }
     /** Return the current editing layer.
      *
      * @return the index of the layer.
@@ -558,7 +573,7 @@ public class CircuitPanel extends JPanel implements ChangeSelectedLayer,
         drawingModel.imgCanvas.drawCanvasImage(g2, mapCoordinates);
         // Draw the grid if necessary.
         if (isGridVisible) {
-            graphicSwing.drawGrid(mapCoordinates, 0, 0, 
+            graphicSwing.drawGrid(mapCoordinates, 0, 0,
                     getWidth(), getHeight());
         }
 
@@ -577,7 +592,7 @@ public class CircuitPanel extends JPanel implements ChangeSelectedLayer,
 
         // Draw the handles of all selected primitives.
         drawingAgent.drawSelectedHandles(graphicSwing, mapCoordinates);
-                       
+
         if (this.isLeftToRight) {
             this.selectionColor = Color.BLUE;
             float dash1[] = {3.0f};
@@ -591,8 +606,9 @@ public class CircuitPanel extends JPanel implements ChangeSelectedLayer,
         }
         // If an evidence rectangle is active, draw it.
         if (evidenceRect != null
-                && continuosMoveActions.actionSelected == 
-                ElementsEdtActions.SELECTION) {
+                && continuosMoveActions.actionSelected ==
+                ElementsEdtActions.SELECTION)
+        {
             g.setColor(selectionColor);
             g.drawRect(evidenceRect.x, evidenceRect.y,
                     evidenceRect.width, evidenceRect.height);
@@ -734,10 +750,13 @@ public class CircuitPanel extends JPanel implements ChangeSelectedLayer,
                 undoActions);
         continuosMoveActions = new ContinuosMoveActions(drawingModel,
                 selectionActions, undoActions, editorActions);
+
+        handleActions = new HandleActions(getDrawingModel(), getEditorActions(),
+            getSelectionActions(), getUndoActions());
         drawingAgent = new Drawing(drawingModel);
         continuosMoveActions.setPrimitivesParListener(this);
         copyPasteActions = new CopyPasteActions(drawingModel, editorActions,
-                selectionActions, parserActions, 
+                selectionActions, parserActions,
                 undoActions, new TextTransfer());
     }
 
@@ -794,6 +813,17 @@ public class CircuitPanel extends JPanel implements ChangeSelectedLayer,
     {
         return continuosMoveActions;
     }
+
+
+    /** Get the current instance of HandleActions controller class
+     *
+     * @return the class
+     */
+    public HandleActions getHandleActions()
+    {
+        return handleActions;
+    }
+
 
     /** Shows a dialog which allows the user modify the parameters of a given
      * primitive. If more than one primitive is selected, modify only the
@@ -947,7 +977,7 @@ public class CircuitPanel extends JPanel implements ChangeSelectedLayer,
     }
 
     /** Determine the direction of the selection.
-     
+
         @param isLeftToRight True if the direction is from left to right..
                              False if it is from right to left.
      */

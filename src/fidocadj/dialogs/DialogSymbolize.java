@@ -124,22 +124,22 @@ public final class DialogSymbolize extends MinimumSizeDialog
         libFilename.setEditable(true);
     }
 
-    /** By implementing writeObject method, 
-    // we can prevent 
-    // subclass from serialization 
+    /** By implementing writeObject method,
+    // we can prevent
+    // subclass from serialization
     */
-    private void writeObject(ObjectOutputStream out) throws IOException 
-    { 
-        throw new NotSerializableException(); 
-    } 
-      
-    /* By implementing readObject method, 
-    // we can prevent 
-    // subclass from de-serialization 
+    private void writeObject(ObjectOutputStream out) throws IOException
+    {
+        throw new NotSerializableException();
+    }
+
+    /* By implementing readObject method,
+    // we can prevent
+    // subclass from de-serialization
     */
-    private void readObject(ObjectInputStream in) throws IOException 
-    { 
-        throw new NotSerializableException(); 
+    private void readObject(ObjectInputStream in) throws IOException
+    {
+        throw new NotSerializableException();
     }
 
     /** Create the GUI for the dialog.
@@ -218,8 +218,10 @@ public final class DialogSymbolize extends MinimumSizeDialog
                     cpanel.setLx(cpanel.getMapCoordinates().unmapXnosnap(x));
                     cpanel.setLy(cpanel.getMapCoordinates().unmapYnosnap(y));
                 }
-                x=cpanel.getMapCoordinates().mapXi(cpanel.getLx(),cpanel.getLy(),false);
-                y=cpanel.getMapCoordinates().mapYi(cpanel.getLx(),cpanel.getLy(),false);
+                x=cpanel.getMapCoordinates().mapXi(
+                    cpanel.getLx(),cpanel.getLy(),false);
+                y=cpanel.getMapCoordinates().mapYi(
+                    cpanel.getLx(),cpanel.getLy(),false);
                 cpanel.setDx(x);
                 cpanel.setDy(y);
                 cpanel.repaint();

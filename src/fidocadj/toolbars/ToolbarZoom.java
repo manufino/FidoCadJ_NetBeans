@@ -62,6 +62,8 @@ public final class ToolbarZoom extends JToolBar implements ActionListener,
     
     private FidoFrame fidoFrame;
 
+    private FidoFrame fidoFrame;
+
     /** Standard constructor
         @param l the layer description
         @param fidoFrame the frame parent

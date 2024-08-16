@@ -94,22 +94,22 @@ public class MacroTree extends JPanel
         initComponents();
     }
 
-    /** By implementing writeObject method, 
-    // we can prevent 
-    // subclass from serialization 
+    /** By implementing writeObject method,
+    // we can prevent
+    // subclass from serialization
     */
-    private void writeObject(ObjectOutputStream out) throws IOException 
-    { 
-        throw new NotSerializableException(); 
-    } 
-      
-    /* By implementing readObject method, 
-    // we can prevent 
-    // subclass from de-serialization 
+    private void writeObject(ObjectOutputStream out) throws IOException
+    {
+        throw new NotSerializableException();
+    }
+
+    /* By implementing readObject method,
+    // we can prevent
+    // subclass from de-serialization
     */
-    private void readObject(ObjectInputStream in) throws IOException 
-    { 
-        throw new NotSerializableException(); 
+    private void readObject(ObjectInputStream in) throws IOException
+    {
+        throw new NotSerializableException();
     }
 
     /** Initialize view components and relate models.
@@ -546,7 +546,8 @@ public class MacroTree extends JPanel
         LibraryListener l = new LibraryListenerAdapter() {
             public void libraryLoaded()
             {
-                previewPanel.getDrawingModel().setLibrary(libraryModel.getAllMacros());
+                previewPanel.getDrawingModel().
+                    setLibrary(libraryModel.getAllMacros());
             }
         };
         libraryModel.addLibraryListener(l);

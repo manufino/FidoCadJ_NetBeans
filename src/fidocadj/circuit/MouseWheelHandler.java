@@ -40,7 +40,7 @@ public class MouseWheelHandler implements KeyListener,
     public MouseWheelHandler(CircuitPanel c)
     {
         cc=c;
-        
+
         if (OSValidator.isMac() == false) {
             cc.addMouseWheelListener(this);
         }

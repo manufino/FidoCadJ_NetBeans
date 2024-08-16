@@ -290,7 +290,7 @@ public final class DrawingModel
                 // We keep track of the maximum layer number used in the
                 // drawing.
                 if (g.layer>maxLayer) {
-                        maxLayer = g.layer;
+                    maxLayer = g.layer;
                 }
 
                 if (g.containsLayer(l)) {
@@ -334,6 +334,14 @@ public final class DrawingModel
         return getPrimitiveVector().isEmpty();
     }
         
+    /** Returns changed state
+        @return changed state.
+    */
+    public boolean getChanged()
+    {
+        return changed;
+    }
+
     /** Returns changed state
         @return changed state.
     */
