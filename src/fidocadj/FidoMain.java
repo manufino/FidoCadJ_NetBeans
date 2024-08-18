@@ -18,6 +18,8 @@ import fidocadj.layers.StandardLayers;
 import fidocadj.timer.MyTimer;
 import fidocadj.graphic.PointG;
 import fidocadj.graphic.DimensionG;
+import com.formdev.flatlaf.FlatDarkLaf;
+import com.formdev.flatlaf.FlatLightLaf;
 
 /** FidoMain.java
  * SWING App: The starting point of FidoCadJ.
@@ -419,24 +421,36 @@ class CreateSwingInterface implements Runnable
                 System.out.println("VAqua11 look and feel active");
             } catch (Exception e) {
                 // Quaqua is not active. Just continue!
-
+                /*
                 System.out.println(
                         "The Quaqua look and feel is not available");
                 System.out.println(
                         "I will continue with the basic Apple l&f");
+                */
+                try {
+                    FlatLightLaf.setup();
+                    //FlatDarkLaf.setup(); 
+                } catch (Exception eE) {
+                    System.out.println(
+                            "Could not load the FlatLightLaf Look and feel!");
+                }
             }
         } else {
-            if (System.getProperty("os.name").startsWith("Win")) {
+            if (OSValidator.isWindows()) {
                 /* If the host system is a window system, select the Windows
                  * look and feel. This is a way to encourage people to use
                  * FidoCadJ even on a Windows system, forgotting about Java.
                  */
                 try {
+                    /*
                     UIManager.setLookAndFeel(
                         "com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
+                    */
+                    FlatLightLaf.setup(); 
+                    //FlatDarkLaf.setup(); 
                 } catch (Exception eE) {
                     System.out.println(
-                            "Could not load the Windows Look and feel!");
+                            "Could not load the FlatLightLaf Look and feel!");
                 }
             }
         }

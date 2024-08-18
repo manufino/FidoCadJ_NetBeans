@@ -150,8 +150,8 @@ public final class DialogOptions extends MinimumSizeDialog
         tabsPane.addTab(Globals.messages.getString("PCBsizes"),
                 createPCBsizePanel());
 
-        tabsPane.addTab(Globals.messages.getString("FidoCad"),
-                createExtensionsPanel());
+        tabsPane.addTab(Globals.messages.getString("Theme_management"),
+                createThemePanel());
 
         constraints = DialogUtil.createConst(0, 0, 3, 1, 100, 100,
                 GridBagConstraints.EAST, GridBagConstraints.BOTH,
@@ -289,7 +289,7 @@ public final class DialogOptions extends MinimumSizeDialog
 
         JLabel liblbl = new JLabel(Globals.messages.getString("lib_dir"));
 
-        constraints = DialogUtil.createConst(0, 0, 1, 1, 100, 100,
+        constraints = DialogUtil.createConst(0, 0, 1, 1, 0.01, 0.01,
                 GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL,
                 new Insets(20, 40, 6, 0));
 
@@ -298,7 +298,7 @@ public final class DialogOptions extends MinimumSizeDialog
 
         libD = new JTextField(10);
         libD.setText(libDirectory);
-        constraints = DialogUtil.createConst(0, 1, 1, 1, 100, 100,
+        constraints = DialogUtil.createConst(0, 1, 1, 1, 0.01, 0.01,
                 GridBagConstraints.EAST, GridBagConstraints.HORIZONTAL,
                 new Insets(6, 40, 6, 20));
 
@@ -362,10 +362,10 @@ public final class DialogOptions extends MinimumSizeDialog
         });
 
         JLabel restw = new JLabel(Globals.messages.getString("restart_info"));
-        constraints = DialogUtil.createConst(0, 3, 1, 1, 100, 100,
+        constraints = DialogUtil.createConst(0, 3, 1, 1, 0.01, 0.01,
                 GridBagConstraints.EAST, GridBagConstraints.HORIZONTAL,
                 new Insets(6, 40, 6, 0));
-
+        restw.setForeground(Color.BLUE);
         restartOptionPanel.add(restw, constraints);
 
         textToolbar_CB = new JCheckBox(
@@ -373,28 +373,33 @@ public final class DialogOptions extends MinimumSizeDialog
 
         textToolbar_CB.setSelected(textToolbar);
         textToolbar_CB.setOpaque(false);
-        constraints = DialogUtil.createConst(0, 4, 1, 1, 100, 100,
+        constraints = DialogUtil.createConst(0, 4, 1, 1, 0.01, 0.01,
                 GridBagConstraints.EAST, GridBagConstraints.HORIZONTAL,
                 new Insets(6, 40, 6, 0));
 
-        // Add text in tb cb
         restartOptionPanel.add(textToolbar_CB, constraints);
-
-        constraints = DialogUtil.createConst(0, 5, 1, 1, 100, 100,
-                GridBagConstraints.EAST, GridBagConstraints.HORIZONTAL,
-                new Insets(6, 40, 6, 20));
 
         smallIconsToolbar_CB = new JCheckBox(Globals.messages.getString(
                 "SmallIcons"));
         smallIconsToolbar_CB.setSelected(smallIconsToolbar);
         smallIconsToolbar_CB.setOpaque(false);
 
-        constraints = DialogUtil.createConst(0, 6, 1, 1, 100, 100,
+        constraints = DialogUtil.createConst(0, 5, 1, 1, 0.01, 0.01,
                 GridBagConstraints.EAST, GridBagConstraints.HORIZONTAL,
-                new Insets(6, 40, 20, 20));
+                new Insets(6, 40, 6, 0));
 
         // Add small icons
         restartOptionPanel.add(smallIconsToolbar_CB, constraints);
+        
+        
+        extStrict_CB = new JCheckBox(Globals.messages.getString(
+                "strict_FC_comp"));
+        extStrict_CB.setSelected(extStrict);
+        extStrict_CB.setOpaque(false);
+        constraints = DialogUtil.createConst(0, 6, 1, 1, 0.05, 0.05,
+                GridBagConstraints.EAST, GridBagConstraints.HORIZONTAL,
+                new Insets(6, 40, 6, 0));
+        restartOptionPanel.add(extStrict_CB, constraints); // Strict FidoCAD
 
         return restartOptionPanel;
     }
@@ -555,90 +560,86 @@ public final class DialogOptions extends MinimumSizeDialog
 
         JLabel pcblinelbl = new JLabel(Globals.messages.getString(
                 "pcbline_width"));
-        constraints = DialogUtil.createConst(0, 0, 1, 1, 100, 100,
+        constraints = DialogUtil.createConst(0, 0, 1, 1, 0.5, 0.01,
                 GridBagConstraints.EAST, GridBagConstraints.NONE,
-                new Insets(0, 0, 0, 0));
+                new Insets(30, 6, 6, 6));
         pcbSizePanel.add(pcblinelbl, constraints);          // Add pcbline label
 
         pcblinewidth = new JTextField(10);
         pcblinewidth.setText("" + pcblinewidth_i);
-        constraints = DialogUtil.createConst(1, 0, 1, 1, 100, 100,
+        constraints = DialogUtil.createConst(1, 0, 1, 1, 0.5, 0.01,
                 GridBagConstraints.WEST, GridBagConstraints.NONE,
-                new Insets(6, 6, 6, 6));
+                new Insets(30, 6, 6, 6));
 
         pcbSizePanel.add(pcblinewidth, constraints);    // Add pcbline width tf
 
         JLabel pcbpadwidthlbl = new JLabel(Globals.messages.getString(
                 "pcbpad_width"));
-        constraints = DialogUtil.createConst(0, 1, 1, 1, 100, 100,
+        constraints = DialogUtil.createConst(0, 1, 1, 1, 0.5, 0.01,
                 GridBagConstraints.EAST, GridBagConstraints.NONE,
-                new Insets(6, 6, 6, 6));
+                new Insets(8, 6, 6, 6));
         pcbSizePanel.add(pcbpadwidthlbl, constraints); // Add pcbpad width label
 
         pcbpadwidth = new JTextField(10);
         pcbpadwidth.setText("" + pcbpadwidth_i);
-        constraints = DialogUtil.createConst(1, 1, 1, 1, 100, 100,
+        constraints = DialogUtil.createConst(1, 1, 1, 1, 0.5, 0.01,
                 GridBagConstraints.WEST, GridBagConstraints.NONE,
-                new Insets(6, 6, 6, 6));
+                new Insets(8, 6, 6, 6));
 
         pcbSizePanel.add(pcbpadwidth, constraints);     // Add pcbpad width tf
 
         JLabel pcbpadheightlbl = new JLabel(Globals.messages.getString(
                 "pcbpad_height"));
-        constraints = DialogUtil.createConst(0, 2, 1, 1, 100, 100,
+        constraints = DialogUtil.createConst(0, 2, 1, 1, 0.5, 0.01,
                 GridBagConstraints.EAST, GridBagConstraints.NONE,
-                new Insets(6, 6, 6, 6));
+                new Insets(8, 6, 6, 6));
         pcbSizePanel.add(pcbpadheightlbl, constraints); // Add pcbline label
 
         pcbpadheight = new JTextField(10);
         pcbpadheight.setText("" + pcbpadheight_i);
-        constraints = DialogUtil.createConst(1, 2, 1, 1, 100, 100,
+        constraints = DialogUtil.createConst(1, 2, 1, 1, 0.5, 0.01,
                 GridBagConstraints.WEST, GridBagConstraints.NONE,
-                new Insets(6, 6, 6, 6));
+                new Insets(8, 6, 6, 6));
         pcbSizePanel.add(pcbpadheight, constraints);  // Add pcbline height tf
 
         JLabel pcbpadintwlbl = new JLabel(Globals.messages.getString(
                 "pcbpad_intw"));
-        constraints = DialogUtil.createConst(0, 3, 1, 1, 100, 100,
+        constraints = DialogUtil.createConst(0, 3, 1, 1, 0.5, 0.01,
                 GridBagConstraints.EAST, GridBagConstraints.NONE,
-                new Insets(6, 6, 6, 6));
+                new Insets(8, 6, 6, 6));
         pcbSizePanel.add(pcbpadintwlbl, constraints);// Add pcbpad int w label
 
         pcbpadintw = new JTextField(10);
         pcbpadintw.setText("" + pcbpadintw_i);
-        constraints = DialogUtil.createConst(1, 3, 1, 1, 100, 100,
+        constraints = DialogUtil.createConst(1, 3, 1, 1, 0.5, 0.01,
                 GridBagConstraints.WEST, GridBagConstraints.NONE,
-                new Insets(6, 6, 6, 6));
+                new Insets(8, 6, 6, 6));
         pcbSizePanel.add(pcbpadintw, constraints);      // Add pcbline width tf
 
+        constraints = DialogUtil.createConst(0, 4, 2, 1, 0.0, 1.0, 
+            GridBagConstraints.CENTER, GridBagConstraints.BOTH, 
+            new Insets(0, 0, 0, 0));
+        pcbSizePanel.add(new JLabel(), constraints);
+        
         return pcbSizePanel;
     }
 
-    /** Creates the panel dedicated to the extensions introduced by FidoCadJ on
-     * the original FidoCAD file format.
+    /** Creates the panel dedicated to the theme settings
      *
-     * @return the panel concerning extensions to the very old FidoCAD format.
+     * @return the panel containing the theme settings.
      */
-    private JPanel createExtensionsPanel()
+    private JPanel createThemePanel()
     {
         /** ********************************************************************
-         * FidoCadJ extensions
+         * Theme settings
          **********************************************************************/
-        JPanel extensionsPanel = new JPanel();
+        JPanel themePanel = new JPanel();
 
         GridBagConstraints constraints = new GridBagConstraints();
-        extensionsPanel.setLayout(new GridBagLayout());
-        extensionsPanel.setOpaque(false);
+        themePanel.setLayout(new GridBagLayout());
+        themePanel.setOpaque(false);
 
-        extStrict_CB = new JCheckBox(Globals.messages.getString(
-                "strict_FC_comp"));
-        extStrict_CB.setSelected(extStrict);
-        extStrict_CB.setOpaque(false);
-        constraints = DialogUtil.createConst(0, 0, 2, 1, 100, 100,
-                GridBagConstraints.WEST, GridBagConstraints.NONE,
-                new Insets(6, 40, 6, 40));
-        extensionsPanel.add(extStrict_CB, constraints); // Strict FidoCAD
-        // compatibility
-        return extensionsPanel;
+
+        return themePanel;
     }
 }
