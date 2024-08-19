@@ -1,5 +1,6 @@
 package fidocadj.dialogs;
 
+import fidocadj.dialogs.controls.ColorPicker;
 import java.awt.*;
 import javax.swing.*;
 import java.awt.event.*;
@@ -632,15 +633,216 @@ public final class DialogOptions extends MinimumSizeDialog
      */
     private JPanel createThemePanel()
     {
-        /** ********************************************************************
-         * Theme settings
-         **********************************************************************/
         JPanel themePanel = new JPanel();
-
-        GridBagConstraints constraints = new GridBagConstraints();
         themePanel.setLayout(new GridBagLayout());
         themePanel.setOpaque(false);
 
+        GridBagConstraints constraints = new GridBagConstraints();
+
+        // Groupbox "Theme Management"
+        JPanel themeManagementPanel = new JPanel();
+        themeManagementPanel.setBorder(
+                BorderFactory.createTitledBorder("Gestione tema"));
+        themeManagementPanel.setLayout(new GridBagLayout());
+
+        // Checkbox to enable custom themes support
+        JCheckBox enableCustomThemes_CB = new JCheckBox(
+                "Abilita il supporto per temi personalizzati");
+        enableCustomThemes_CB.setOpaque(false);
+        constraints = DialogUtil.createConst(0, 0, 2, 1, 100, 100,
+                GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL,
+                new Insets(6, 6, 6, 6));
+        themeManagementPanel.add(enableCustomThemes_CB, constraints);
+
+        // Radio buttons for theme selection
+        JRadioButton lightTheme_RB = new JRadioButton("Tema light");
+        JRadioButton darkTheme_RB = new JRadioButton("Tema dark");
+        JRadioButton customTheme_RB = new JRadioButton("Tema personalizzato");
+
+        ButtonGroup themeGroup = new ButtonGroup();
+        themeGroup.add(lightTheme_RB);
+        themeGroup.add(darkTheme_RB);
+        themeGroup.add(customTheme_RB);
+
+        // Set "Tema light" as the default selected option
+        lightTheme_RB.setSelected(true);
+
+        constraints = DialogUtil.createConst(0, 1, 1, 1, 100, 100,
+                GridBagConstraints.WEST, GridBagConstraints.NONE,
+                new Insets(6, 6, 6, 6));
+        themeManagementPanel.add(lightTheme_RB, constraints);
+
+        constraints = DialogUtil.createConst(0, 2, 1, 1, 100, 100,
+                GridBagConstraints.WEST, GridBagConstraints.NONE,
+                new Insets(6, 6, 6, 6));
+        themeManagementPanel.add(darkTheme_RB, constraints);
+
+        constraints = DialogUtil.createConst(0, 3, 1, 1, 100, 100,
+                GridBagConstraints.WEST, GridBagConstraints.NONE,
+                new Insets(6, 6, 6, 6));
+        themeManagementPanel.add(customTheme_RB, constraints);
+
+        // TextBox and Button for selecting custom theme file
+        JTextField customThemePath_TF = new JTextField(20);
+        customThemePath_TF.setEnabled(false);
+        JButton browseCustomTheme_Btn = new JButton("Sfoglia");
+        browseCustomTheme_Btn.setEnabled(false);
+
+        constraints = DialogUtil.createConst(1, 3, 1, 1, 100, 100,
+                GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL,
+                new Insets(6, 6, 6, 6));
+        themeManagementPanel.add(customThemePath_TF, constraints);
+
+        constraints = DialogUtil.createConst(2, 3, 1, 1, 100, 100,
+                GridBagConstraints.WEST, GridBagConstraints.NONE,
+                new Insets(6, 6, 6, 6));
+        themeManagementPanel.add(browseCustomTheme_Btn, constraints);
+
+        // Enable/Disable Controls based on Custom Themes
+        enableCustomThemes_CB.addActionListener(new ActionListener()
+        {
+            @Override
+            public void actionPerformed(ActionEvent e)
+            {
+                boolean enabled = enableCustomThemes_CB.isSelected();
+                lightTheme_RB.setEnabled(enabled);
+                darkTheme_RB.setEnabled(enabled);
+                customTheme_RB.setEnabled(enabled);
+                if (!enabled) {
+                    customThemePath_TF.setEnabled(false);
+                    browseCustomTheme_Btn.setEnabled(false);
+                } else {
+                    customThemePath_TF.setEnabled(customTheme_RB.isSelected());
+                    browseCustomTheme_Btn.setEnabled(customTheme_RB.isSelected());
+                }
+            }
+        });
+
+        ActionListener themeSelectionListener = new ActionListener()
+        {
+            @Override
+            public void actionPerformed(ActionEvent e)
+            {
+                boolean customSelected = customTheme_RB.isSelected();
+                customThemePath_TF.setEnabled(customSelected);
+                browseCustomTheme_Btn.setEnabled(customSelected);
+            }
+        };
+
+        lightTheme_RB.addActionListener(themeSelectionListener);
+        darkTheme_RB.addActionListener(themeSelectionListener);
+        customTheme_RB.addActionListener(themeSelectionListener);
+
+        // Groupbox "Color Management"
+        JPanel colorManagementPanel = new JPanel();
+        colorManagementPanel.setBorder(
+                BorderFactory.createTitledBorder("Gestione colori"));
+        colorManagementPanel.setLayout(new GridBagLayout());
+
+        // Column 1: Long text labels
+        JLabel backgroundColorLabel = new JLabel(
+                "Colore di sfondo dell'area di disegno");
+        constraints = DialogUtil.createConst(0, 0, 1, 1, 100, 100,
+                GridBagConstraints.EAST, GridBagConstraints.NONE,
+                new Insets(6, 6, 6, 6));
+        colorManagementPanel.add(backgroundColorLabel, constraints);
+
+        ColorPicker backgroundColorPicker = new ColorPicker(30, 20, Color.WHITE);
+        constraints = DialogUtil.createConst(1, 0, 1, 1, 100, 100,
+                GridBagConstraints.WEST, GridBagConstraints.NONE,
+                new Insets(6, 6, 6, 6));
+        colorManagementPanel.add(backgroundColorPicker, constraints);
+
+        JLabel selectionRightToLeftColorLabel = new JLabel(
+                "Colore rettangolo di selezione da destra a sinistra");
+        constraints = DialogUtil.createConst(0, 1, 1, 1, 100, 100,
+                GridBagConstraints.EAST, GridBagConstraints.NONE,
+                new Insets(6, 6, 6, 6));
+        colorManagementPanel.add(selectionRightToLeftColorLabel, constraints);
+
+        ColorPicker selectionRightToLeftColorPicker = new ColorPicker(30, 20,
+                Color.BLUE);
+        constraints = DialogUtil.createConst(1, 1, 1, 1, 100, 100,
+                GridBagConstraints.WEST, GridBagConstraints.NONE,
+                new Insets(6, 6, 6, 6));
+        colorManagementPanel.add(selectionRightToLeftColorPicker, constraints);
+
+        JLabel selectionLeftToRightColorLabel = new JLabel(
+                "Colore rettangolo di selezione da sinistra a destra");
+        constraints = DialogUtil.createConst(0, 2, 1, 1, 100, 100,
+                GridBagConstraints.EAST, GridBagConstraints.NONE,
+                new Insets(6, 6, 6, 6));
+        colorManagementPanel.add(selectionLeftToRightColorLabel, constraints);
+
+        ColorPicker selectionLeftToRightColorPicker = new ColorPicker(30, 20,
+                Color.GREEN);
+        constraints = DialogUtil.createConst(1, 2, 1, 1, 100, 100,
+                GridBagConstraints.WEST, GridBagConstraints.NONE,
+                new Insets(6, 6, 6, 6));
+        colorManagementPanel.add(selectionLeftToRightColorPicker, constraints);
+
+        JLabel selectedElementsColorLabel = new JLabel(
+                "Colore elementi selezionati");
+        constraints = DialogUtil.createConst(0, 3, 1, 1, 100, 100,
+                GridBagConstraints.EAST, GridBagConstraints.NONE,
+                new Insets(6, 6, 6, 6));
+        colorManagementPanel.add(selectedElementsColorLabel, constraints);
+
+        ColorPicker selectedElementsColorPicker = new ColorPicker(30, 20,
+                Color.YELLOW);
+        constraints = DialogUtil.createConst(1, 3, 1, 1, 100, 100,
+                GridBagConstraints.WEST, GridBagConstraints.NONE,
+                new Insets(6, 6, 6, 6));
+        colorManagementPanel.add(selectedElementsColorPicker, constraints);
+
+        // Column 2: Short text labels
+        JLabel gridDotsColorLabel = new JLabel("Colore griglia (punti)");
+        constraints = DialogUtil.createConst(2, 0, 1, 1, 100, 100,
+                GridBagConstraints.EAST, GridBagConstraints.NONE,
+                new Insets(6, 6, 6, 6));
+        colorManagementPanel.add(gridDotsColorLabel, constraints);
+
+        ColorPicker gridDotsColorPicker = new ColorPicker(30, 20, Color.GRAY);
+        constraints = DialogUtil.createConst(3, 0, 1, 1, 100, 100,
+                GridBagConstraints.WEST, GridBagConstraints.NONE,
+                new Insets(6, 6, 6, 6));
+        colorManagementPanel.add(gridDotsColorPicker, constraints);
+
+        JLabel gridLinesColorLabel = new JLabel("Colore griglia (linee)");
+        constraints = DialogUtil.createConst(2, 1, 1, 1, 100, 100,
+                GridBagConstraints.EAST, GridBagConstraints.NONE,
+                new Insets(6, 6, 6, 6));
+        colorManagementPanel.add(gridLinesColorLabel, constraints);
+
+        ColorPicker gridLinesColorPicker = new ColorPicker(30, 20,
+                Color.LIGHT_GRAY);
+        constraints = DialogUtil.createConst(3, 1, 1, 1, 100, 100,
+                GridBagConstraints.WEST, GridBagConstraints.NONE,
+                new Insets(6, 6, 6, 6));
+        colorManagementPanel.add(gridLinesColorPicker, constraints);
+
+        JLabel drawingColorLabel = new JLabel("Colore di default per il disegno");
+        constraints = DialogUtil.createConst(2, 2, 1, 1, 100, 100,
+                GridBagConstraints.EAST, GridBagConstraints.NONE,
+                new Insets(6, 6, 6, 6));
+        colorManagementPanel.add(drawingColorLabel, constraints);
+
+        ColorPicker drawingColorPicker = new ColorPicker(30, 20, Color.BLACK);
+        constraints = DialogUtil.createConst(3, 2, 1, 1, 100, 100,
+                GridBagConstraints.WEST, GridBagConstraints.NONE,
+                new Insets(6, 6, 6, 6));
+        colorManagementPanel.add(drawingColorPicker, constraints);
+
+        // Adding both GroupBoxes to the main panel
+        constraints = DialogUtil.createConst(0, 0, 1, 1, 100, 100,
+                GridBagConstraints.NORTHWEST, GridBagConstraints.BOTH,
+                new Insets(10, 10, 10, 10));
+        themePanel.add(themeManagementPanel, constraints);
+
+        constraints = DialogUtil.createConst(0, 1, 1, 1, 100, 100,
+                GridBagConstraints.NORTHWEST, GridBagConstraints.BOTH,
+                new Insets(10, 10, 10, 10));
+        themePanel.add(colorManagementPanel, constraints);
 
         return themePanel;
     }
