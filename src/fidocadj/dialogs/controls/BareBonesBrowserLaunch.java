@@ -49,10 +49,10 @@ public final class BareBonesBrowserLaunch
                 if (osName.startsWith("Mac OS")) {
                     Class.forName("com.apple.eio.FileManager")
                         .getDeclaredMethod("openURL",
-                        new Class[] {String.class}).invoke(null,
-                            new Object[] {url});
+                            new Class[] {String.class}).invoke(null,
+                                new Object[] {url});
                 } else if (osName.startsWith("Windows")) {
-                    String command = 
+                    String command =
                                 "rundll32 url.dll,FileProtocolHandler " + url;
                     ProcessBuilder processBuilder = new ProcessBuilder("cmd",
                             "/c", command);

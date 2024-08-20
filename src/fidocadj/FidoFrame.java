@@ -420,22 +420,22 @@ public final class FidoFrame extends JFrame implements
         ae.pcbPadStyle=Integer.parseInt(preferences.get("PCB_pad_style","0"));
         ae.pcbPadDrill=Integer.parseInt(preferences.get("PCB_pad_drill","5"));
         ae.pcbThickness=Integer.parseInt(preferences.get("PCB_thickness","5"));
-        
+
         circuitPanel.setBackground(Color.decode(preferences.get(
                 "BACKGROUND_COLOR", "#FFFFFF")));
-        
+
         circuitPanel.setDotsGridColor(Color.decode(preferences.get(
                 "GRID_DOTS_COLOR", "#000000")));
-        
+
         circuitPanel.setLinesGridColor(Color.decode(preferences.get(
                 "GRID_LINES_COLOR", "#D3D3D3")));
-        
+
         circuitPanel.setLeftToRightColor(Color.decode(
                 preferences.get("SELECTION_LTR_COLOR", "#008000")));
-        
+
         circuitPanel.setRightToLeftColor(Color.decode(
                 preferences.get("SELECTION_RTL_COLOR", "#0000FF")));
-        
+
         MapCoordinates mc=circuitPanel.getMapCoordinates();
         double z=Double.parseDouble(preferences.get("CURRENT_ZOOM","4.0"));
         mc.setMagnitudes(z,z);
@@ -469,27 +469,27 @@ public final class FidoFrame extends JFrame implements
             if(englishLibraries) {
                 // Read the english version of the libraries
                 pa.loadLibraryInJar(FidoFrame.class.getResource(
-                    "/lib/IHRAM_en.FCL"), "ihram");
+                    "lib/IHRAM_en.FCL"), "ihram");
                 pa.loadLibraryInJar(FidoFrame.class.getResource(
-                    "/lib/FCDstdlib_en.fcl"), "");
+                    "lib/FCDstdlib_en.fcl"), "");
                 pa.loadLibraryInJar(FidoFrame.class.getResource(
-                    "/lib/PCB_en.fcl"), "pcb");
+                    "lib/PCB_en.fcl"), "pcb");
                 pa.loadLibraryInJar(FidoFrame.class.getResource(
-                    "/lib/elettrotecnica_en.fcl"), "elettrotecnica");
+                    "lib/elettrotecnica_en.fcl"), "elettrotecnica");
                 pa.loadLibraryInJar(FidoFrame.class.getResource(
-                    "/lib/EY_Libraries.fcl"), "EY_Libraries");
+                    "lib/EY_Libraries.fcl"), "EY_Libraries");
             } else {
                 // Read the italian version of the libraries
                 pa.loadLibraryInJar(FidoFrame.class.getResource(
-                    "/lib/IHRAM.FCL"), "ihram");
+                    "lib/IHRAM.FCL"), "ihram");
                 pa.loadLibraryInJar(FidoFrame.class.getResource(
-                    "/lib/FCDstdlib.fcl"), "");
+                    "lib/FCDstdlib.fcl"), "");
                 pa.loadLibraryInJar(FidoFrame.class.getResource(
-                    "/lib/PCB.fcl"), "pcb");
+                    "lib/PCB.fcl"), "pcb");
                 pa.loadLibraryInJar(FidoFrame.class.getResource(
-                    "/lib/elettrotecnica.fcl"), "elettrotecnica");
+                    "lib/elettrotecnica.fcl"), "elettrotecnica");
                 pa.loadLibraryInJar(FidoFrame.class.getResource(
-                    "/lib/EY_Libraries.fcl"), "EY_Libraries");
+                    "lib/EY_Libraries.fcl"), "EY_Libraries");
             }
         }
         libraryModel.forceUpdate();
@@ -512,7 +512,8 @@ public final class FidoFrame extends JFrame implements
         // compatibility.
         if (runsAsApplication)  {
             circuitPanel.getDrawingModel().setTextFont(
-                    preferences.getString("MACRO_FONT", Globals.defaultTextFont),
+                    preferences.getString("MACRO_FONT",
+                    Globals.defaultTextFont),
                     preferences.getInt("MACRO_SIZE", 3),
                     circuitPanel.getUndoActions());
 
@@ -746,19 +747,19 @@ public final class FidoFrame extends JFrame implements
         // Update properties based on the new settings
         circuitPanel.setBackground(Color.decode(preferences.get(
                 "BACKGROUND_COLOR", "#FFFFFF")));
-        
+
         circuitPanel.setDotsGridColor(Color.decode(preferences.get(
                 "GRID_DOTS_COLOR", "#000000")));
 
         circuitPanel.setLinesGridColor(Color.decode(preferences.get(
                 "GRID_LINES_COLOR", "#D3D3D3")));
-        
+
         circuitPanel.setLeftToRightColor(Color.decode(
                 preferences.get("SELECTION_LTR_COLOR", "#008000")));
-        
+
         circuitPanel.setRightToLeftColor(Color.decode(
                 preferences.get("SELECTION_RTL_COLOR", "#0000FF")));
-        
+
         circuitPanel.profileTime = preferences.getBoolean("PROFILE_TIME",
                 circuitPanel.profileTime);
         circuitPanel.antiAlias = preferences.getBoolean("ANTIALIAS",
