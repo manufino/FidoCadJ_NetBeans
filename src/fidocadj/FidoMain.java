@@ -186,7 +186,9 @@ public final class FidoMain
         });
     }
 
-    /** Apply optimisation settings which are platform-dependent.
+    /** Apply optimisation settings which are platform-dependent. This function
+     *  is called early in the execution of the program, before the AWT/Swing
+     *  is initialized.
      *
      * @param clp command-line arguments may deactivate some optimisations.
      */
@@ -204,6 +206,10 @@ public final class FidoMain
             // CAREFUL**************************************************
             // NOTE: this does not seem to have any effect!
             System.setProperty("apple.awt.graphics.UseQuartz", "true");
+            // Important tweaks to the appearance.
+            System.setProperty( "apple.awt.application.name", "FidoCadJ" );
+            System.setProperty( "apple.awt.application.appearance", "system" );
+        
         }
 
         /* if(!clp.getStripOptimization() &&
@@ -495,6 +501,11 @@ class CreateSwingInterface implements Runnable
          *****************************************************************
          PLATFORM SELECTION AND CONFIGURATION CODE GOES IN THIS SECTION
          ******************************************************************
+         
+         NOTE: this is executed AFTER the AWT/Swing is initialized.
+               see applyOptimizationSettings if you need to setup things
+               before that happens.
+         
          */
         if (OSValidator.isMac()) {
             System.setProperty("com.apple.macos.useScreenMenuBar", "true");
