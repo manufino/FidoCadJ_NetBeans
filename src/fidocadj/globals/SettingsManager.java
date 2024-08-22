@@ -40,12 +40,10 @@ public class SettingsManager
     /**
      Constructs a new SettingsManager associated with a specific class.
      The Preferences API uses this class for storing and retrieving settings.
-
-     @param clazz the class for which the preferences node is created.
      */
-    public SettingsManager(Class<?> clazz)
+    public SettingsManager()
     {
-        this.preferences = Preferences.userNodeForPackage(clazz);
+        this.preferences = Preferences.userNodeForPackage(this.getClass());
         this.settings = new HashMap<>();
     }
 
@@ -95,7 +93,7 @@ public class SettingsManager
     }
 
     /**
-     Stores a setting in the Preferences store. 
+     Stores a setting in the Preferences store.
      This method overloads the existing set method to allow storing ..
      settings as strings to maintain compatibility with older code.
 
@@ -118,10 +116,12 @@ public class SettingsManager
      */
     public int getInt(String key, int defaultValue)
     {
-        if (settings.containsKey(key)) {
-            return (int) settings.get(key);
+        String value = get(key, String.valueOf(defaultValue));
+        try {
+            return Integer.parseInt(value);
+        } catch (NumberFormatException e) {
+            return defaultValue;
         }
-        return preferences.getInt(key, defaultValue);
     }
 
     /**
@@ -134,10 +134,13 @@ public class SettingsManager
      */
     public double getDouble(String key, double defaultValue)
     {
-        if (settings.containsKey(key)) {
-            return (double) settings.get(key);
+        String value = get(key, String.valueOf(defaultValue));
+        try {
+            return Double.parseDouble(value);
+        } catch (NumberFormatException e) {
+            // If the conversion fails, it returns the default value.
+            return defaultValue;
         }
-        return preferences.getDouble(key, defaultValue);
     }
 
     /**
@@ -150,10 +153,8 @@ public class SettingsManager
      */
     public boolean getBoolean(String key, boolean defaultValue)
     {
-        if (settings.containsKey(key)) {
-            return (boolean) settings.get(key);
-        }
-        return preferences.getBoolean(key, defaultValue);
+        String value = get(key, String.valueOf(defaultValue));
+        return Boolean.parseBoolean(value);
     }
 
     /**
