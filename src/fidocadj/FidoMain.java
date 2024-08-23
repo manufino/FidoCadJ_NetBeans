@@ -210,7 +210,7 @@ public final class FidoMain
             // Important tweaks to the appearance.
             System.setProperty( "apple.awt.application.name", "FidoCadJ" );
             System.setProperty( "apple.awt.application.appearance", "system" );
-        
+
         }
 
         /* if(!clp.getStripOptimization() &&
