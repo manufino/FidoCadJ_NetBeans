@@ -187,35 +187,6 @@ public final class FidoMain
         });
     }
 
-     @param thread the thread where the uncaught exception occurred.
-     @param throwable the uncaught exception.
-     */
-    private static void handleUncaughtException(Thread thread,
-            Throwable throwable)
-    {
-        // Log the exception
-        System.err.println(
-                "Uncaught exception in thread " +
-                        thread.getName() + ": " +
-                        throwable.getMessage());
-
-        throwable.printStackTrace();
-
-        // Create a string containing the exception message and stack trace
-        StringWriter sw = new StringWriter();
-        PrintWriter pw = new PrintWriter(sw);
-        throwable.printStackTrace(pw);
-        String exceptionText = sw.toString();
-
-        // Show a dialog with the exception text
-        SwingUtilities.invokeLater(() -> {
-            JFrame parentFrame = null;
-            ErrorDialog errorDialog =
-                    new ErrorDialog(parentFrame, exceptionText);
-            errorDialog.setVisible(true);
-        });
-    }
-
     /** Apply optimisation settings which are platform-dependent. This function
      *  is called early in the execution of the program, before the AWT/Swing
      *  is initialized.
