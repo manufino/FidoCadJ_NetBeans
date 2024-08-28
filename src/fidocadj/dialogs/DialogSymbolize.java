@@ -338,7 +338,7 @@ public final class DialogSymbolize extends MinimumSizeDialog
 
         key=new JTextField();
         TextPopupMenu.addPopupToText(key);
-        
+
         long t=System.nanoTime();
         long h=0;
         for(int i=0; t>0; ++i) {
@@ -404,8 +404,8 @@ public final class DialogSymbolize extends MinimumSizeDialog
                 Globals.messages.getString("SnapToGridOrigin"));
         snapToGrid.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
 
-        constraints = DialogUtil.createConst(1, 6, 2, 1, 1.0, 0.1, 
-                GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL, 
+        constraints = DialogUtil.createConst(1, 6, 2, 1, 1.0, 0.1,
+                GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL,
                 new Insets(8, 0, 0, 0));
         panel.add(snapToGrid, constraints);
 
