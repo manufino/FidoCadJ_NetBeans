@@ -77,8 +77,6 @@ public final class DialogParameters extends JDialog
 
     private PadSelector pads;
 
-    private PadSelector pads;
-
     OSKeybPanel keyb1;
     OSKeybPanel keyb2;
     JTabbedPane keyb = new JTabbedPane();
